@@ -76,7 +76,7 @@ void write_voters()
 void write_candidates()
 {
     ofstream file;
-    // truncate to simplify the implementation
+    // truncate to simplify the implementatio
     file.open(CANDIDATE_FILE, ios::trunc);
     for (int i = 0; i < 10; ++i) {
         candidate_t c = candidates[i];
