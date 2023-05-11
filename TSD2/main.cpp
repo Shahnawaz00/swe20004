@@ -14,20 +14,22 @@ const string CANDIDATE_FILE = "candidate.txt";
 
 
 char menu();
-void print_help();
-void display_highest_voted_candidate();
-void display_lowest_voted_candidate();
-void add_votes_to_candidate();
-void print_candidate_numbers();
-void read_candidates_from_file();
-void read_voters_from_file();
-void write_candidates_to_file();
-void write_voters_to_file();
+void reprint_menu();
+void highest_candidate();
+void lowest_candidate();
+void add_votes();
+void print_votes();
+void read_candidates();
+void read_voters();
+void write_candidates();
+void write_voters();
+
+
 
 int main()
 {
-    read_voters_from_file();
-    read_candidates_from_file();
+    read_voters();
+    read_candidates();
 
     while (true)
     {
@@ -37,20 +39,20 @@ int main()
         switch (choice)
         {
         case 'P':
-            print_candidate_numbers();
+            print_votes();
             break;
         case 'A':
-            add_votes_to_candidate();
+            add_votes();
             break;
         case 'S':
-            display_lowest_voted_candidate();
+            lowest_candidate();
             break;
         case 'L':
-            display_highest_voted_candidate();
+            highest_candidate();
             break;
         case 'Q':
-            write_voters_to_file();
-            write_candidates_to_file();
+            write_voters();
+            write_candidates();
             exit(0);
         default:
             menu();
@@ -244,7 +246,7 @@ void reprint_menu(){
 char menu()
 {
 	char choice;
-	print_help();
+	reprint_menu();
     cin >> choice;
     choice = toupper(choice);
     cout << endl;
@@ -252,7 +254,7 @@ char menu()
     while (choice != 'P' && choice != 'A' && choice != 'S' && choice != 'L' && choice != 'Q')
     {
         cout << "Unknown Selection, Please Try Again" << endl;
-        print_help();
+        reprint_menu();
         cin >> choice;
         cout << endl << endl;
      }
