@@ -1,0 +1,10 @@
+1 J.Kelly 48 Male Mulgrave Labor ALP Left C.Ford 3
+2 W.Flame 41 Female Kew Democrats DLP Left JVD.Horst 4
+3 R.Sanchez 59 Male Altona Nationals Nats Right M.Harris 3
+4 N.Thompson 55 Female Albertson Liberals Libs Right S.Questin 5
+5 R.Wright 33 Male Glenelg Labor ALP Left C.Ford 4
+6 K.Man 37 Female Prahran Liberals Libs Right S.McQuestin 8
+7 H.Simpson 40 Male Burwood Reason TRP Centrist T.Quilty 1
+8 D.Spender 31 Female Hawthorn Greens AGP Left M.Shield 1
+9 H.Power 51 Male Ivanhoe Greens AGP Left M.Shield 51
+10 J.Johnson 46 Female Bundoora Science ASP Centrist R.McRand 50

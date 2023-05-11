@@ -1,0 +1,10 @@
+1 FrankLitz 21 Frankston 23/12/56 1 Nowhereville 0 100000 0
+2 SallyJones 56 Dromana 03/11/94 9 Somewhereville 1 31337 1
+3 JohnLimpton 34 Richmond 11/04/29 0 Whoknowsville 1 100000000 1
+4 CandyLothestosock 42 Glenelg 18/07/98 0 Notsureville 1 46578 0
+5 BillBobs 99 Kew 01/01/11 0 Whocaresville 1 3 1
+6 ChloeKloggs 32 Burnley 18/09/12 0 Runningoutoffunnyplacesville 0 467689 0
+7 JarradPlops 56 Surrey Hills 15 0 Honestlydonewiththisville 1 21378
+8 JakePaul 12 Carrum Downs 17 0 Whatville 0 0
+9 SallyBrowsn 71 Seaford 12/10/13 0 Wotville 1 100 1
+10 LorneMalvo 100 Kensington 04/03/02 0 Lastoneville 0 90000 1
