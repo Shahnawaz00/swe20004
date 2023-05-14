@@ -3,8 +3,7 @@
 
 using namespace std;
 
-#ifndef ECVS_CANDIDATE_H
-#define ECVS_CANDIDATE_H
+
 
 struct candidate_t
 {
@@ -20,6 +19,5 @@ struct candidate_t
     int count;              // Current number of votes for candidate
 };
 
-extern vector<candidate_t> candidates;
 
-#endif //ECVS_CANDIDATE_H
+

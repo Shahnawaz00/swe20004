@@ -135,9 +135,7 @@
     <Text Include="voter.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="candidate.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="voter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

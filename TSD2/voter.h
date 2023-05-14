@@ -1,10 +1,7 @@
 #include <fstream>
-#include <vector>
 
 using namespace std;
 
-#ifndef ECVS_VOTER_H
-#define ECVS_VOTER_H
 
 struct voter_t {
     int voter_id;
@@ -19,6 +16,3 @@ struct voter_t {
     string retired;
 };
 
-extern vector<voter_t> voters;
-
-#endif //ECVS_VOTER_H

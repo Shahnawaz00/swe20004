@@ -6,12 +6,14 @@
 #include "voter.h"
 #include "candidate.h"
 
-
+hii
 using namespace std;
 
 const string VOTER_FILE = "voter.txt";
 const string CANDIDATE_FILE = "candidate.txt";
 
+vector<candidate_t> candidates = {};
+vector<voter_t> voters = {};
 
 char menu();
 void reprint_menu();
@@ -64,7 +66,7 @@ void write_voters()
 {
     ofstream file;
     
-    file.open(VOTER_FILE, ios::trunc);
+    file.open(VOTER_FILE, ios::trunc); //trunc flag clears whole file before writing to it.
     for (int i = 0; i < 10; ++i) {
         voter_t v = voters[i];
         file << v.voter_id << " " << v.name << " " << v.age << " "
@@ -200,9 +202,7 @@ void lowest_candidate()
 		}
 	}
 
-	// ugly hack solution for dealing with ties, could probably deal with this in
-	// the loop one level higher but we're close to submission
-	// FUTURE WORK: create more efficient logic
+
 	for (int i = 0; i < 10; i++) {
 	    if (temp == candidates[i].count) {
             cout << "The lowest amount of votes is Candidate " << candidates[i].id << ". "
@@ -222,9 +222,7 @@ void highest_candidate()
 		}
 	}
 
-    // ugly hack solution for dealing with ties, could probably deal with this in
-    // the loop one level higher but we're close to submission
-    // FUTURE WORK: create more efficient logic
+   
     for (int i = 0; i < 10; i++) {
         if (large == candidates[i].count) {
             cout << "The highest amount of votes is Candidate " << candidates[i].id << ". "<< candidates[i].name << " with " << candidates[i].count
