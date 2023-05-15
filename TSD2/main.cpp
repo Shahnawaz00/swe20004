@@ -6,7 +6,6 @@
 #include "voter.h"
 #include "candidate.h"
 
-hii
 using namespace std;
 
 const string VOTER_FILE = "voter.txt";
@@ -38,7 +37,7 @@ int main()
         char choice;
         choice = menu();
 
-        switch (choice)
+        switch (toupper(choice)) //toupper switches lowercase to upper case, so both will work
         {
         case 'P':
             print_votes();
@@ -67,11 +66,11 @@ void write_voters()
     ofstream file;
     
     file.open(VOTER_FILE, ios::trunc); //trunc flag clears whole file before writing to it.
-    for (int i = 0; i < 10; ++i) {
-        voter_t v = voters[i];
-        file << v.voter_id << " " << v.name << " " << v.age << " "
-                << v.suburb << " " << v.date_of_birth << " " << v.candidate_selection << " "
-                << v.electorate << " " << v.previously_voted << " " << v.salary << " " << v.retired << endl;
+    for (int i = 0; i < voters.size(); ++i) {
+        voter_t vote = voters[i];
+        file << vote.voter_id << " " << vote.first_name << " " << vote.second_name << " " << vote.age << " "
+                << vote.gender << " " << vote.suburb << " " << vote.state << " " << vote.date_of_birth << " " << vote.country_of_birth << " "
+                << vote.candidate_choice << endl;
     }
 }
 
@@ -80,72 +79,70 @@ void write_candidates()
     ofstream file;
     // truncate to simplify the implementatio
     file.open(CANDIDATE_FILE, ios::trunc);
-    for (int i = 0; i < 10; ++i) {
-        candidate_t c = candidates[i];
-        file << c.id << " " << c.name << " " << c.age << " "
-             << c.gender << " " << c.electorate << " " << c.party << " "
-             << c.abbreviation << " " << c.political_position << " " << c.officer << " " << c.count << endl;
+    for (int i = 0; i < candidates.size(); ++i) {
+        candidate_t cand = candidates[i];
+        file << cand.id << " " << cand.first_name << " " << cand.last_name << " " << cand.age << " "
+             << cand.gender << " " << cand.suburb << " " << cand.party << " "
+             << cand.symbol << " " << cand.years_in_politics << " " << cand.count << endl;
     }
 }
 
 void read_voters() {
     string line;
-    string element;
 
     ifstream file(VOTER_FILE);
 
     if (file.is_open()) {
         while (getline(file, line)) {
-            vector<string> elements;
+            vector<string> voter_element;
             istringstream iss(line);
             for (string line; iss >> line;) {
-                elements.push_back(line);
+                voter_element.push_back(line);
             }
 
-            voter_t v;
-            v.voter_id = stoi(elements[0]);
-            v.name = elements[1];
-            v.age = stoi(elements[2]);
-            v.suburb = elements[3];
-            v.date_of_birth = elements[4];
-            v.candidate_selection = stoi(elements[5]);
-            v.electorate = elements[6];
-            v.previously_voted = elements[7];
-            v.salary = stoi(elements[8]);
-            v.retired = elements[9];
+            voter_t vote;
+            vote.voter_id = stoi(voter_element[0]);
+            vote.first_name = voter_element[1];
+            vote.second_name = voter_element[2];
+            vote.age = stoi(voter_element[3]);
+            vote.gender = voter_element[4];
+            vote.suburb = voter_element[5];
+            vote.state = voter_element[6];
+            vote.date_of_birth = voter_element[7];
+            vote.country_of_birth = voter_element[8];
+            vote.candidate_choice = voter_element[9];
 
-            voters.push_back(v);
+            voters.push_back(vote);
         }
     }
 }
 
 void read_candidates() {
     string line;
-    string element;
 
     ifstream file(CANDIDATE_FILE);
 
     if (file.is_open()) {
         while (getline(file, line)) {
-            vector<string> elements;
+            vector<string> candidate_element;
             istringstream iss(line);
             for (string line; iss >> line;) {
-                elements.push_back(line);
+                candidate_element.push_back(line);
             }
 
-            candidate_t c;
-            c.id = stoi(elements[0]);
-            c.name = elements[1];
-            c.age = stoi(elements[2]);
-            c.gender = elements[3];
-            c.electorate = elements[4];
-            c.party = elements[5];
-            c.abbreviation = elements[6];
-            c.political_position = elements[7];
-            c.officer = elements[8];
-            c.count = stoi(elements[9]);
+            candidate_t cand;
+            cand.id = stoi(candidate_element[0]);
+            cand.first_name = candidate_element[1];
+            cand.last_name = candidate_element[2];
+            cand.age = stoi(candidate_element[3]);
+            cand.gender = candidate_element[4];
+            cand.suburb = candidate_element[5];
+            cand.party = candidate_element[6];
+            cand.symbol = candidate_element[7];
+            cand.years_in_politics = stoi(candidate_element[8]);
+            cand.count = stoi(candidate_element[9]);
 
-            candidates.push_back(c);
+            candidates.push_back(cand);
         }
     }
 }
@@ -153,48 +150,48 @@ void print_votes()
 {
 	int choice;
 
-	cout << "Enter candidate ID: " << endl;
+	cout << "Enter the candidate ID number: " << endl;
 	cin >> choice;
 	while (choice < 1 || choice > 10)
 	{
-	    cout << "Please enter a candidate ID between 1 and 10: " << endl;
+	    cout << "Please enter the candidate ID number between 1 and 10: " << endl;
 	    cin >> choice;
 	}
-	cout << "Candidate " << candidates[choice - 1].id << " - " << candidates[choice - 1].name << " has " << candidates[choice - 1].count << " votes" << endl;
+	cout << "Candidate " << candidates[choice - 1].id << " - " << candidates[choice - 1].last_name << " has " << candidates[choice - 1].count << " votes" << endl;
 }
 
 void add_votes()
 {
-	int votchoice, canchoice;
+	int voterschoice, candidatechoice;
 
-	cout << "Enter voter ID: " << endl;
-	cin >> votchoice;
+	cout << "Enter the voter ID number: " << endl;
+	cin >> voterschoice;
 
-	while (votchoice > 10 || votchoice < 0)
+	while (voterschoice > voters.size() || voterschoice < 0)
 	{
-		cout << "Enter voter ID: " << endl;
-		cin >> votchoice;
+		cout << "Enter the voter ID number: " << endl;
+		cin >> voterschoice;
 	}
 
-	cout << "Enter candidate ID: " << endl;
-	cin >> canchoice;
+	cout << "Enter the candidate ID number: " << endl;
+	cin >> candidatechoice;
 
-	while (canchoice > 10 || canchoice < 0)
+	while (candidatechoice > candidates.size() || candidatechoice < 0)
 	{
-		cout << "Enter candidate ID: " << endl;
-		cin >> canchoice;
+		cout << "Enter the candidate ID number: " << endl;
+		cin >> candidatechoice;
 	}
 
-	voters[votchoice - 1].candidate_selection = canchoice;
-	candidates[canchoice - 1].count += 1;
-	cout << candidates[canchoice - 1].id << ". " << candidates[canchoice - 1].name << " now has " << candidates[canchoice - 1].count << " votes " << endl;
+    voters[voterschoice - 1].candidate_choice = candidatechoice;
+	candidates[candidatechoice - 1].count += 1;
+	cout << candidates[candidatechoice - 1].id << ". " << candidates[candidatechoice - 1].last_name << " now has " << candidates[candidatechoice - 1].count << " votes " << endl;
 }
 
 
 void lowest_candidate()
 {
 	int temp = candidates[0].count;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < candidates.size(); i++)
 	{
 		if (temp > candidates[i].count)
 		{
@@ -203,10 +200,10 @@ void lowest_candidate()
 	}
 
 
-	for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < candidates.size(); i++) {
 	    if (temp == candidates[i].count) {
             cout << "The lowest amount of votes is Candidate " << candidates[i].id << ". "
-                    << candidates[i].name << " with " << candidates[i].count << " votes" << endl;
+                    << candidates[i].last_name << " with " << candidates[i].count << " votes" << endl;
         }
 	}
 }
@@ -216,16 +213,16 @@ void highest_candidate()
 {
 	int large;
 	large = candidates[0].count;
-	for (int i = 1; i < 10; i++) {
+    for (int i = 1; i < candidates.size(); i++) {
 		if (candidates[i].count > large) {
 			large = candidates[i].count;
 		}
 	}
 
    
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < candidates.size(); i++) {
         if (large == candidates[i].count) {
-            cout << "The highest amount of votes is Candidate " << candidates[i].id << ". "<< candidates[i].name << " with " << candidates[i].count
+            cout << "The highest amount of votes is Candidate " << candidates[i].id << ". "<< candidates[i].last_name << " with " << candidates[i].count
                  << " votes" << endl;
         }
     }
@@ -251,7 +248,7 @@ char menu()
 
     while (choice != 'P' && choice != 'A' && choice != 'S' && choice != 'L' && choice != 'Q')
     {
-        cout << "Unknown Selection, Please Try Again" << endl;
+        cout << "Seletion is not valid, please choose an option from the menu." << endl;
         reprint_menu();
         cin >> choice;
         cout << endl << endl;
