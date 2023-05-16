@@ -31,13 +31,14 @@ int main()
 {
     read_voters();
     read_candidates();
+    bool quit = false;
 
-    while (true)
+    while (!quit)
     {
-        char choice;
-        choice = menu();
+        char userinput;
+        userinput = menu();
 
-        switch (toupper(choice)) //toupper switches lowercase to upper case, so both will work
+        switch (toupper(userinput)) //toupper switches lowercase to upper case, so both will work
         {
         case 'P':
             print_votes();
@@ -54,9 +55,7 @@ int main()
         case 'Q':
             write_voters();
             write_candidates();
-            exit(0);
-        default:
-            menu();
+            quit = true;
         }
     }
 }
@@ -185,6 +184,7 @@ void add_votes()
     voters[voterschoice - 1].candidate_choice = candidatechoice;
 	candidates[candidatechoice - 1].count += 1;
 	cout << candidates[candidatechoice - 1].id << ". " << candidates[candidatechoice - 1].last_name << " now has " << candidates[candidatechoice - 1].count << " votes " << endl;
+    
 }
 
 
@@ -229,31 +229,34 @@ void highest_candidate()
 }
 
 void reprint_menu(){
+    cout << endl;
     cout << "Main menu:" << endl << "Please choose from the following" << endl;
-    cout << "P - Display information on certain candidate" << endl;
-    cout << "A - Add votes to candidate" << endl;
-    cout << "S - Display candidate with smallest amount of votes" << endl;
-    cout << "L - Display candidate with largest number of votes" << endl;
-    cout << "Q - Quit" << endl << endl;
+    cout << "P - Candidate number of votes" << endl;
+    cout << "A - Add number of votes to a candidate" << endl;
+    cout << "S - Display the smallest number of votes candidate" << endl;
+    cout << "L - Display the largest number of votes candidate" << endl;
+    cout << "Q - Quit and data to database" << endl;
 }
 
 
 char menu()
 {
-	char choice;
+	char userinput;
 	reprint_menu();
-    cin >> choice;
-    choice = toupper(choice);
+    cin >> userinput;
+    userinput = toupper(userinput);
     cout << endl;
 
-    while (choice != 'P' && choice != 'A' && choice != 'S' && choice != 'L' && choice != 'Q')
+    while (userinput != 'P' && userinput != 'A' && userinput != 'S' && userinput != 'L' && userinput != 'Q')
     {
         cout << "Seletion is not valid, please choose an option from the menu." << endl;
         reprint_menu();
-        cin >> choice;
-        cout << endl << endl;
-     }
+        cin >> userinput;
+        cout <<  endl;
 
-	return choice;
+        userinput = toupper(userinput);
+    }
+
+	return userinput;
 }
 
