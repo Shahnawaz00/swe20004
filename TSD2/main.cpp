@@ -5,8 +5,7 @@
 
 #include "voter.h"
 #include "candidate.h"
-
-hii
+ 
 using namespace std;
 
 const string VOTER_FILE = "voter.txt";
