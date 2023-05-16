@@ -5,14 +5,14 @@ using namespace std;
 
 struct voter_t {
     int voter_id;
-    string name;
+    string first_name;
+    string second_name;
     int age;
+    string gender;
     string suburb;
+    string state;
     string date_of_birth;
-    int candidate_selection;
-    string electorate;
-    string previously_voted;
-    int salary;
-    string retired;
+    string country_of_birth;
+    string candidate_choice; //chosen candidate to vote for
 };
 
