@@ -182,9 +182,8 @@ void add_votes()
     }
 
     voters[voterschoice - 1].candidate_choice = candidatechoice;
-    candidates[candidatechoice - 1].count += 1;
-    cout << candidates[candidatechoice - 1].id << ". " << candidates[candidatechoice - 1].last_name << " now has " << candidates[candidatechoice - 1].count << " votes " << endl;
-
+	candidates[candidatechoice - 1].count += 1;
+	cout << candidates[candidatechoice - 1].id << ". " << candidates[candidatechoice - 1].last_name << " now has " << candidates[candidatechoice - 1].count << " votes " << endl;
 }
 
 
@@ -228,8 +227,7 @@ void highest_candidate()
     }
 }
 
-void reprint_menu() {
-    cout << endl;
+void reprint_menu(){
     cout << "Main menu:" << endl << "Please choose from the following" << endl;
     cout << "P - Candidate number of votes" << endl;
     cout << "A - Add number of votes to a candidate" << endl;
@@ -241,22 +239,20 @@ void reprint_menu() {
 
 char menu()
 {
-    char userinput;
-    reprint_menu();
-    cin >> userinput;
-    userinput = toupper(userinput);
+	char choice;
+	reprint_menu();
+    cin >> choice;
+    choice = toupper(choice);
     cout << endl;
 
     while (userinput != 'P' && userinput != 'A' && userinput != 'S' && userinput != 'L' && userinput != 'Q')
     {
         cout << "Seletion is not valid, please choose an option from the menu." << endl;
         reprint_menu();
-        cin >> userinput;
-        cout << endl;
+        cin >> choice;
+        cout << endl << endl;
+     }
 
-        userinput = toupper(userinput);
-    }
-
-    return userinput;
+	return choice;
 }
 
