@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 #include <vector>
 #include <sstream>
 #include <string>
@@ -61,6 +62,7 @@ int main()
     }
 }
 
+//writes the updated file information to the file when q (quit) is pressed
 void write_voters()
 {
     ofstream file;
@@ -76,17 +78,18 @@ void write_voters()
 
 void write_candidates()
 {
-    ofstream file;
-    // truncate to simplify the implementatio
+    ofstream file;//declares an output file stream named 'file' that will be used to write data to a file
+    
     file.open(CANDIDATE_FILE, ios::trunc);
     for (int i = 0; i < candidates.size(); ++i) {
         candidate_t cand = candidates[i];
-        file << cand.id << " " << cand.first_name << " " << cand.last_name << " " << cand.age << " "
-             << cand.gender << " " << cand.suburb << " " << cand.party << " "
+        file << cand.id << " " << cand.first_name << " " << cand.last_name << " " << cand.age << " " 
+             << cand.gender << " " << cand.suburb << " " << cand.party << " " 
              << cand.symbol << " " << cand.years_in_politics << " " << cand.count << endl;
     }
 }
 
+//reads the voter.txt file
 void read_voters() {
     string line;
 
@@ -117,6 +120,7 @@ void read_voters() {
     }
 }
 
+//reads the candidate.txt file
 void read_candidates() {
     string line;
 
@@ -128,7 +132,7 @@ void read_candidates() {
             istringstream iss(line);
             for (string line; iss >> line;) {
                 candidate_element.push_back(line);
-            }
+            } 
 
             candidate_t cand;
             cand.id = stoi(candidate_element[0]);
@@ -146,48 +150,118 @@ void read_candidates() {
         }
     }
 }
-void print_votes()
-{
-	int choice;
 
-	cout << "Enter the candidate ID number: " << endl;
-	cin >> choice;
-	while (choice < 1 || choice > 10)
-	{
-	    cout << "Please enter the candidate ID number between 1 and 10: " << endl;
-	    cin >> choice;
-	}
-	cout << "Candidate " << candidates[choice - 1].id << " - " << candidates[choice - 1].last_name << " has " << candidates[choice - 1].count << " votes" << endl;
+//checks that each character in the string is an integer
+bool check_input_number(string userinput)
+{
+    for (int i = 0; i < userinput.length(); i++)
+    {
+        if (isdigit(userinput[i]) == false) // check if each character in the string is a digit
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
+//checks for errors in input, if passes, reads chosen candidates vote count
+void print_votes()
+{
+    int choice;
+    string userinput;
+    bool validinput = false;
+
+	cout << "Enter the candidate ID number: " << endl;
+    while (!validinput) // while we do not have a vaid input
+    {
+	    cin >> userinput;// get input
+        if (check_input_number(userinput)) { // check if input is a number
+            choice = stoi(userinput); //convert string to int
+            if (choice >= 1 && choice <= 10) // check if number is between range
+            {
+                validinput = true;//set valid input to true
+	            cout << "Candidate " << candidates[choice - 1].id << " - " << candidates[choice - 1].last_name << " has " << candidates[choice - 1].count << " votes" << endl;
+            }
+            else
+            {
+                cout << "Please enter the candidate ID number between 1 and 10: " << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+        }
+        else
+        {
+            cout << "Please enter the candidate ID number between 1 and 10: " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+}
+
+//checks for errors in input, if passes, candidate will gain vote from voter
 void add_votes()
 {
 	int voterschoice, candidatechoice;
+    string uservoteinput, usercandidateinput;
+    bool votevalidinput = false;
+    bool candidatevalidinput = false;
 
 	cout << "Enter the voter ID number: " << endl;
-	cin >> voterschoice;
-
-	while (voterschoice > voters.size() || voterschoice < 0)
-	{
-		cout << "Enter the voter ID number: " << endl;
-		cin >> voterschoice;
-	}
+    while (!votevalidinput) 
+    {
+        cin >> uservoteinput;
+        if (check_input_number(uservoteinput)) { 
+            voterschoice = stoi(uservoteinput); 
+            if (voterschoice >= 1 && voterschoice <= voters.size()) 
+            {
+                votevalidinput = true;
+            }
+            else
+            {
+                cout << "Please enter the voter ID number between 1 and 10: " << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+        }
+        else
+        {
+            cout << "Please enter the voter ID number between 1 and 10: " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
 
 	cout << "Enter the candidate ID number: " << endl;
-	cin >> candidatechoice;
-
-	while (candidatechoice > candidates.size() || candidatechoice < 0)
-	{
-		cout << "Enter the candidate ID number: " << endl;
-		cin >> candidatechoice;
-	}
+    while (!candidatevalidinput) // while we do not have a vaid input
+    {
+        cin >> usercandidateinput;// get input
+        if (check_input_number(usercandidateinput)) { // check if input is a number
+            candidatechoice = stoi(usercandidateinput); //convert string to int
+            if (candidatechoice >= 1 && candidatechoice <= candidates.size()) // check if number is between range
+            {
+                candidatevalidinput = true;//set valid input to true
+            }
+            else
+            {
+                cout << "Please enter the candidate ID number between 1 and 10: " << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+        }
+        else
+        {
+            cout << "Please enter the candidate ID number between 1 and 10: " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
 
     voters[voterschoice - 1].candidate_choice = candidatechoice;
 	candidates[candidatechoice - 1].count += 1;
 	cout << candidates[candidatechoice - 1].id << ". " << candidates[candidatechoice - 1].last_name << " now has " << candidates[candidatechoice - 1].count << " votes " << endl;
 }
 
-
+//checks for candidate with the lowest vote count
 void lowest_candidate()
 {
 	int temp = candidates[0].count;
@@ -208,7 +282,7 @@ void lowest_candidate()
 	}
 }
 
-
+//checks for candidate with the highest vote count
 void highest_candidate()
 {
 	int large;
@@ -228,13 +302,14 @@ void highest_candidate()
     }
 }
 
+//function used to reprint menu after every selection
 void reprint_menu(){
     cout << "Main menu:" << endl << "Please choose from the following" << endl;
     cout << "P - Display information on certain candidate" << endl;
     cout << "A - Add votes to candidate" << endl;
     cout << "S - Display candidate with smallest amount of votes" << endl;
     cout << "L - Display candidate with largest number of votes" << endl;
-    cout << "Q - Quit" << endl << endl;
+    cout << "Q - Quit" << endl;
 }
 
 
@@ -245,13 +320,14 @@ char menu()
     cin >> choice;
     choice = toupper(choice);
     cout << endl;
-
+    //another error check
     while (choice != 'P' && choice != 'A' && choice != 'S' && choice != 'L' && choice != 'Q')
     {
         cout << "Seletion is not valid, please choose an option from the menu." << endl;
         reprint_menu();
         cin >> choice;
-        cout << endl << endl;
+        choice = toupper(choice);
+        cout << endl;
      }
 
 	return choice;
