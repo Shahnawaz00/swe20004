@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 1 Benjamin Franklin 56 Male Glenferrie Liberal Libs 16 7
+=======
+1 Benjamin Franklin 56 Male Glenferrie Liberal Libs 16 10
+>>>>>>> 907cac661f6fb56bc4937c58836f4cbcb1fc569a
 2 Samuel James 25 Male OakPark Labor ALP 5 4
 3 Roberta Jules 36 Female Coburg Labor ALP 10 3
 4 Lauren Hades 55 Female Frankston Liberal Libs 5 5

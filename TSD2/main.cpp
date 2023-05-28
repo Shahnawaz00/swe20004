@@ -32,13 +32,14 @@ int main()
 {
     read_voters();
     read_candidates();
+    bool quit = false;
 
-    while (true)
+    while (!quit)
     {
-        char choice;
-        choice = menu();
+        char userinput;
+        userinput = menu();
 
-        switch (toupper(choice)) //toupper switches lowercase to upper case, so both will work
+        switch (toupper(userinput)) //toupper switches lowercase to upper case, so both will work
         {
         case 'P':
             print_votes();
@@ -55,9 +56,7 @@ int main()
         case 'Q':
             write_voters();
             write_candidates();
-            exit(0);
-        default:
-            menu();
+            quit = true;
         }
     }
 }
@@ -66,13 +65,13 @@ int main()
 void write_voters()
 {
     ofstream file;
-    
+
     file.open(VOTER_FILE, ios::trunc); //trunc flag clears whole file before writing to it.
     for (int i = 0; i < voters.size(); ++i) {
         voter_t vote = voters[i];
         file << vote.voter_id << " " << vote.first_name << " " << vote.second_name << " " << vote.age << " "
-                << vote.gender << " " << vote.suburb << " " << vote.state << " " << vote.date_of_birth << " " << vote.country_of_birth << " "
-                << vote.candidate_choice << endl;
+            << vote.gender << " " << vote.suburb << " " << vote.state << " " << vote.date_of_birth << " " << vote.country_of_birth << " "
+            << vote.candidate_choice << endl;
     }
 }
 
@@ -83,9 +82,9 @@ void write_candidates()
     file.open(CANDIDATE_FILE, ios::trunc);
     for (int i = 0; i < candidates.size(); ++i) {
         candidate_t cand = candidates[i];
-        file << cand.id << " " << cand.first_name << " " << cand.last_name << " " << cand.age << " " 
-             << cand.gender << " " << cand.suburb << " " << cand.party << " " 
-             << cand.symbol << " " << cand.years_in_politics << " " << cand.count << endl;
+        file << cand.id << " " << cand.first_name << " " << cand.last_name << " " << cand.age << " "
+            << cand.gender << " " << cand.suburb << " " << cand.party << " "
+            << cand.symbol << " " << cand.years_in_politics << " " << cand.count << endl;
     }
 }
 
@@ -264,40 +263,40 @@ void add_votes()
 //checks for candidate with the lowest vote count
 void lowest_candidate()
 {
-	int temp = candidates[0].count;
-	for (int i = 0; i < candidates.size(); i++)
-	{
-		if (temp > candidates[i].count)
-		{
-			temp = candidates[i].count;
-		}
-	}
+    int temp = candidates[0].count;
+    for (int i = 0; i < candidates.size(); i++)
+    {
+        if (temp > candidates[i].count)
+        {
+            temp = candidates[i].count;
+        }
+    }
 
 
     for (int i = 0; i < candidates.size(); i++) {
-	    if (temp == candidates[i].count) {
+        if (temp == candidates[i].count) {
             cout << "The lowest amount of votes is Candidate " << candidates[i].id << ". "
-                    << candidates[i].last_name << " with " << candidates[i].count << " votes" << endl;
+                << candidates[i].last_name << " with " << candidates[i].count << " votes" << endl;
         }
-	}
+    }
 }
 
 //checks for candidate with the highest vote count
 void highest_candidate()
 {
-	int large;
-	large = candidates[0].count;
+    int large;
+    large = candidates[0].count;
     for (int i = 1; i < candidates.size(); i++) {
-		if (candidates[i].count > large) {
-			large = candidates[i].count;
-		}
-	}
+        if (candidates[i].count > large) {
+            large = candidates[i].count;
+        }
+    }
 
-   
+
     for (int i = 0; i < candidates.size(); i++) {
         if (large == candidates[i].count) {
-            cout << "The highest amount of votes is Candidate " << candidates[i].id << ". "<< candidates[i].last_name << " with " << candidates[i].count
-                 << " votes" << endl;
+            cout << "The highest amount of votes is Candidate " << candidates[i].id << ". " << candidates[i].last_name << " with " << candidates[i].count
+                << " votes" << endl;
         }
     }
 }
@@ -305,11 +304,11 @@ void highest_candidate()
 //function used to reprint menu after every selection
 void reprint_menu(){
     cout << "Main menu:" << endl << "Please choose from the following" << endl;
-    cout << "P - Display information on certain candidate" << endl;
-    cout << "A - Add votes to candidate" << endl;
-    cout << "S - Display candidate with smallest amount of votes" << endl;
-    cout << "L - Display candidate with largest number of votes" << endl;
-    cout << "Q - Quit" << endl;
+    cout << "P - Candidate number of votes" << endl;
+    cout << "A - Add number of votes to a candidate" << endl;
+    cout << "S - Display the smallest number of votes candidate" << endl;
+    cout << "L - Display the largest number of votes candidate" << endl;
+    cout << "Q - Quit and data to database" << endl;
 }
 
 
